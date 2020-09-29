@@ -35,15 +35,17 @@ static UIColor *FBMemoryProfilerPaleRedColor() {
 
   UIFont *_font;
   FBRetainCycleAnalysisCache *_analysisCache;
+  FBObjectGraphConfiguration *_configuration;
 }
 
-- (instancetype)initWithAnalysisCache:(FBRetainCycleAnalysisCache *)analysisCache
+- (instancetype)initWithAnalysisCache:(FBRetainCycleAnalysisCache *)analysisCache configuration:(FBObjectGraphConfiguration *)configuration
 {
   if (self = [super init]) {
     _font = [UIFont systemFontOfSize:10.0];
-    _expandedSection = [NSMutableSet new];
+    _expandedSection = [NSMutableSet setWithArray:@[@0]];
     _byteCountFormatter = [NSByteCountFormatter new];
     _analysisCache = analysisCache;
+    _configuration = configuration;
   }
   return self;
 }
@@ -176,36 +178,42 @@ static UIColor *FBMemoryProfilerPaleRedColor() {
 - (NSArray *)_refilterSectionAtIndex:(NSInteger)index
 {
     NSArray *filtered = _data[index];
-    // show size top 50
-    [filtered sortedArrayUsingComparator:^NSComparisonResult(FBAllocationTrackerSummary *obj1, FBAllocationTrackerSummary *obj2) {
-      return obj1.instanceSize * obj1.instanceSize > obj2.instanceSize * obj2.instanceSize;
-    }];
-    filtered = [filtered subarrayWithRange:NSMakeRange(0, MIN(50, filtered.count - 1))];
-    
     FBRetainCycleAnalysisCache *cache = _analysisCache;
+    NSInteger cellCountLimit = _configuration.cellCountLimit;
     filtered = [filtered filteredArrayUsingPredicate:
                        [NSPredicate predicateWithBlock:^BOOL(FBAllocationTrackerSummary *entry, NSDictionary *bindings) {
-    FBRetainCycleStatus status = [cache statusInGeneration:index forClassNamed:entry.className];
-    if (status == FBRetainCycleNotPresent) {
-      // filter safe object
-      return NO;
-    }
-    // filter only for filter bundle
-    if (!entry.isFromApp) {
+        FBRetainCycleStatus status = [cache statusInGeneration:index forClassNamed:entry.className];
+        if (status == FBRetainCycleNotPresent) {
+          // filter safe object
+          return NO;
+        }
+        // filter only for filter bundle
+        if (!entry.isFromApp) {
+          return NO;
+        }
+            
+        NSString *className = entry.className.lowercaseString;
+        if (self->_classFilter && [className rangeOfString:self->_classFilter].location == NSNotFound) {
+            return NO;
+        }
+
+        if (entry.aliveObjects > 0 && entry.className) {
+            return YES;
+        }
+
         return NO;
-    }
-
-    NSString *className = entry.className.lowercaseString;
-    if (self->_classFilter && [className rangeOfString:self->_classFilter].location == NSNotFound) {
-      return NO;
-    }
-
-    if (entry.aliveObjects > 0 && entry.className) {
-      return YES;
-    }
-
-    return NO;
   }]];
+    
+  if (cellCountLimit > 0) {
+      // show size top {cellCountLimit}
+      filtered = [filtered sortedArrayUsingComparator:^NSComparisonResult(FBAllocationTrackerSummary *obj1, FBAllocationTrackerSummary *obj2) {
+        return obj1.instanceSize * obj1.instanceSize > obj2.instanceSize * obj2.instanceSize;
+      }];
+
+    if (filtered.count > cellCountLimit) {
+      filtered = [filtered subarrayWithRange:NSMakeRange(0, cellCountLimit)];
+    }
+  }
 
   switch (_sortingMode) {
     case FBMemoryProfilerSortByClass:

@@ -104,6 +104,7 @@ BOOL FBIsFBATEnabledInThisBuild(void)
     [[FBAllocationTrackerSummary alloc] initWithAllocations:singleSummary.allocations
                                               deallocations:singleSummary.deallocations
                                                aliveObjects:singleSummary.allocations - singleSummary.deallocations
+                                                        cls: aCls
                                                   className:className
                                                instanceSize:singleSummary.instanceSize];
     [array addObject:summaryObject];
@@ -117,7 +118,8 @@ BOOL FBIsFBATEnabledInThisBuild(void)
   NSMutableArray *array = [NSMutableArray new];
 
   for (const auto &kv: summary) {
-    NSString *clsName = NSStringFromClass(kv.first);
+    Class aCls = kv.first;
+    NSString *clsName = NSStringFromClass(aCls);
     if ([clsName containsString:@"<"]) {
         static NSRegularExpression *regular;
         static dispatch_once_t onceToken;
@@ -135,8 +137,9 @@ BOOL FBIsFBATEnabledInThisBuild(void)
     [[FBAllocationTrackerSummary alloc] initWithAllocations:0
                                               deallocations:0
                                                aliveObjects:kv.second
+                                                        cls:aCls
                                                   className:clsName
-                                               instanceSize:class_getInstanceSize(kv.first)];
+                                               instanceSize:class_getInstanceSize(aCls)];
 
     [array addObject:summaryObject];
   }

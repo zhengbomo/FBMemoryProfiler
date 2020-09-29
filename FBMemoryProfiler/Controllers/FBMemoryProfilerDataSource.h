@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "FBObjectGraphConfiguration.h"
 
 typedef NS_ENUM(NSUInteger, FBMemoryProfilerSortingMode) {
   FBMemoryProfilerSortByClass,
@@ -47,7 +48,7 @@ typedef NS_ENUM(NSUInteger, FBMemoryProfilerSortingOrder) {
  @param analysisCache is a cache of results memory profiler gathered during retain cycle detection. Rows which objects
  were checked for retain cycles will be marked with red or green depending on wether they were cycled or no
  */
-- (nonnull instancetype)initWithAnalysisCache:(nullable FBRetainCycleAnalysisCache *)analysisCache;
+- (nonnull instancetype)initWithAnalysisCache:(nullable FBRetainCycleAnalysisCache *)analysisCache configuration:(nullable FBObjectGraphConfiguration *)configuration;
 
 /**
  In Generations mode full section can be expanded or collapsed to make it easier to browse

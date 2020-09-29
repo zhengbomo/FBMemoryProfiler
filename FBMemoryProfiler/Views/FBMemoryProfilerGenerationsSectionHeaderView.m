@@ -18,10 +18,11 @@
 
 - (UIButton *)_defaultSectionButton
 {
-  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
   button.titleLabel.font = [UIFont systemFontOfSize:10];
   button.layer.borderColor = [UIColor lightGrayColor].CGColor;
   button.layer.borderWidth = 1.0;
+  [button setTitleColor:button.tintColor forState:UIControlStateNormal];
 
   return button;
 }
@@ -34,6 +35,9 @@
     [_retainCycleDetectionButton addTarget:self action:@selector(_retainCycleDetectionButtonTapped) forControlEvents:UIControlEventTouchUpInside];
 
     _collapseButton = [self _defaultSectionButton];
+    [_collapseButton setTitle:@"Expand" forState:UIControlStateNormal];
+    [_collapseButton setTitle:@"Collapse" forState:UIControlStateSelected];
+      
     [_collapseButton addTarget:self action:@selector(_buttonTapped) forControlEvents:UIControlEventTouchUpInside];
 
     [self addSubview:_retainCycleDetectionButton];
@@ -55,12 +59,9 @@
 
 - (void)setExpanded:(BOOL)expanded
 {
-  _expanded = expanded;
-
-  if (_expanded) {
-    [_collapseButton setTitle:@"Collapse" forState:UIControlStateNormal];
-  } else {
-    [_collapseButton setTitle:@"Expand" forState:UIControlStateNormal];
+  if (_expanded != expanded) {
+    _expanded = expanded;
+    _collapseButton.selected = expanded;
   }
 }
 

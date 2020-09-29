@@ -21,6 +21,7 @@
     _shouldIncludeBlockAddress = shouldIncludeBlockAddress;
     _transformerBlock = [transformerBlock copy];
     _layoutCache = [NSMutableDictionary new];
+    _cellCountLimit = 200;
   }
 
   return self;

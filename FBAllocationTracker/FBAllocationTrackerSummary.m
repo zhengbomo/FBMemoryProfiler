@@ -17,6 +17,7 @@
 - (instancetype)initWithAllocations:(NSUInteger)allocations
                       deallocations:(NSUInteger)deallocations
                        aliveObjects:(NSInteger)aliveObjects
+                                cls:(Class)cls
                           className:(NSString *)className
                        instanceSize:(NSUInteger)instanceSize
 {
@@ -25,6 +26,7 @@
     _deallocations = deallocations;
     _aliveObjects = aliveObjects;
     _className = className;
+    _cls = cls;
     _instanceSize = instanceSize;
   }
 
@@ -53,7 +55,7 @@
             bundleIds = [_bundleIds copy];
         });
         
-        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.className)];
+        NSBundle *bundle = [NSBundle bundleForClass:self.cls];
         if ([bundleIds containsObject:bundle.bundleIdentifier]) {
             _isFromApp = YES;
         } else {

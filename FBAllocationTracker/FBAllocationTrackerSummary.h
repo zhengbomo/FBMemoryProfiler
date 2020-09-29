@@ -15,6 +15,7 @@
 @property (nonatomic, readonly) NSUInteger deallocations;
 @property (nonatomic, readonly) NSInteger aliveObjects;
 @property (nonatomic, copy, readonly, nonnull) NSString *className;
+@property (nonatomic, copy, readonly, nonnull) Class cls;
 @property (nonatomic, readonly) NSUInteger instanceSize;
 
 /// whether class is from current app
@@ -23,6 +24,7 @@
 - (nonnull instancetype)initWithAllocations:(NSUInteger)allocations
                               deallocations:(NSUInteger)deallocations
                                aliveObjects:(NSInteger)aliveObjects
+                                        cls:(Class _Nonnull)cls
                                   className:(nonnull NSString *)className
                                instanceSize:(NSUInteger)instanceSize;
 

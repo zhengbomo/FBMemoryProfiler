@@ -59,12 +59,12 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
 {
   if (self = [super init]) {
     _analysisCache = [FBRetainCycleAnalysisCache new];
-    _dataSource = [[FBMemoryProfilerDataSource alloc] initWithAnalysisCache:_analysisCache];
+    _retainCycleDetectorConfiguration = retainCycleDetectorConfiguration ?: [FBObjectGraphConfiguration new];;
+    _dataSource = [[FBMemoryProfilerDataSource alloc] initWithAnalysisCache:_analysisCache configuration:_retainCycleDetectorConfiguration];
     _byteCountFormatter = [NSByteCountFormatter new];
 
     self.profilerOptions = options;
     _retainCyclePresenter = [[FBRetainCyclePresenter alloc] initWithDelegate:self];
-    _retainCycleDetectorConfiguration = retainCycleDetectorConfiguration ?: [FBObjectGraphConfiguration new];;
   }
 
   return self;
