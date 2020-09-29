@@ -7,8 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
-#import <FBMemoryProfiler/FBMemoryProfiler.h>
+#import <FBMemoryProfiler/FBMemoryProfilerPluggable.h>
 
 /**
  Example of FBMemoryProfiler plugin that will NSLog all retain cycles found

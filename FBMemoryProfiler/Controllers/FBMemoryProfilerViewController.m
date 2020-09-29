@@ -8,7 +8,7 @@
 
 #import "FBMemoryProfilerViewController.h"
 
-#import <FBAllocationTracker/FBAllocationTrackerManager.h>
+#import "FBAllocationTrackerManager.h"
 
 #import "FBMemoryProfilerDataSource.h"
 #import "FBMemoryProfilerDeviceUtils.h"
@@ -25,7 +25,7 @@
 #import "FBRetainCycleAnalysisCache.h"
 #import "FBRetainCyclePresenter.h"
 
-#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
+#import "FBRetainCycleDetector.h"
 
 static const CGFloat kFBMemoryProfilerRefreshIntervalInSeconds = 3.0;
 
@@ -43,7 +43,7 @@ FBMemoryProfilerPresenting>
   FBMemoryProfilerView *_profilerView;
   FBMemoryProfilerDataSource *_dataSource;
 
-  NSTimer *_timer;
+  __weak NSTimer *_timer;
   NSByteCountFormatter *_byteCountFormatter;
 
   UITapGestureRecognizer *_tapGestureRecognizer;
@@ -64,7 +64,7 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
 
     self.profilerOptions = options;
     _retainCyclePresenter = [[FBRetainCyclePresenter alloc] initWithDelegate:self];
-    _retainCycleDetectorConfiguration = retainCycleDetectorConfiguration;
+    _retainCycleDetectorConfiguration = retainCycleDetectorConfiguration ?: [FBObjectGraphConfiguration new];;
   }
 
   return self;
@@ -170,6 +170,7 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
 
 - (void)dealloc
 {
+  [_timer invalidate];
   [_tapGestureRecognizer removeTarget:self action:NULL];
 }
 
@@ -264,7 +265,7 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
       Class aCls = NSClassFromString(className);
       NSArray *objects = [[FBAllocationTrackerManager sharedManager] instancesForClass:aCls
                                                                           inGeneration:generationIndex];
-      FBObjectGraphConfiguration *configuration = self->_retainCycleDetectorConfiguration ?: [FBObjectGraphConfiguration new];
+      FBObjectGraphConfiguration *configuration = self->_retainCycleDetectorConfiguration;
       FBRetainCycleDetector *detector = [[FBRetainCycleDetector alloc] initWithConfiguration:configuration];
       
       for (id object in objects) {

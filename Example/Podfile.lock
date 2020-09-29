@@ -1,0 +1,16 @@
+PODS:
+  - FBMemoryProfiler (0.1.3)
+
+DEPENDENCIES:
+  - FBMemoryProfiler (from `../`)
+
+EXTERNAL SOURCES:
+  FBMemoryProfiler:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBMemoryProfiler: c6c479063e3afcc3d93dce8796669a21e68873ef
+
+PODFILE CHECKSUM: 05d92b9795e816afd6afafe00387ee505b0eb5cf
+
+COCOAPODS: 1.9.3

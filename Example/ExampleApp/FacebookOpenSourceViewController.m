@@ -57,16 +57,18 @@ static NSString *const kFacebookOpenSourceReusableIdentifier = @"kFacebookOpenSo
          completionHandler:^(NSData * _Nullable data,
                              NSURLResponse * _Nullable response,
                              NSError * _Nullable error) {
-           dispatch_async(dispatch_get_main_queue(), ^{
-             NSArray *json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:NSJSONReadingAllowFragments
-                                                               error:nil];
-             if (json) {
-               [self _parseData:json];
-               [_tableView reloadData];
-             }
-           });
-         }];
+      if (data) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *json = [NSJSONSerialization JSONObjectWithData:data
+                                                            options:NSJSONReadingAllowFragments
+                                                              error:nil];
+            if ([json isKindOfClass:NSArray.class]) {
+              [self _parseData:json];
+              [_tableView reloadData];
+            }
+          });
+      }
+  }];
   [task resume];
 }
 

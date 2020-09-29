@@ -8,8 +8,8 @@
 
 #import "FBMemoryProfilerDataSource.h"
 
-#import <FBAllocationTracker/FBAllocationTrackerManager.h>
-#import <FBAllocationTracker/FBAllocationTrackerSummary.h>
+#import "FBAllocationTrackerManager.h"
+#import "FBAllocationTrackerSummary.h"
 
 #import "FBRetainCycleAnalysisCache.h"
 
@@ -175,8 +175,26 @@ static UIColor *FBMemoryProfilerPaleRedColor() {
 
 - (NSArray *)_refilterSectionAtIndex:(NSInteger)index
 {
-  NSArray *filtered = [_data[index] filteredArrayUsingPredicate:
+    NSArray *filtered = _data[index];
+    // show size top 50
+    [filtered sortedArrayUsingComparator:^NSComparisonResult(FBAllocationTrackerSummary *obj1, FBAllocationTrackerSummary *obj2) {
+      return obj1.instanceSize * obj1.instanceSize > obj2.instanceSize * obj2.instanceSize;
+    }];
+    filtered = [filtered subarrayWithRange:NSMakeRange(0, MIN(50, filtered.count - 1))];
+    
+    FBRetainCycleAnalysisCache *cache = _analysisCache;
+    filtered = [filtered filteredArrayUsingPredicate:
                        [NSPredicate predicateWithBlock:^BOOL(FBAllocationTrackerSummary *entry, NSDictionary *bindings) {
+    FBRetainCycleStatus status = [cache statusInGeneration:index forClassNamed:entry.className];
+    if (status == FBRetainCycleNotPresent) {
+      // filter safe object
+      return NO;
+    }
+    // filter only for filter bundle
+    if (!entry.isFromApp) {
+        return NO;
+    }
+
     NSString *className = entry.className.lowercaseString;
     if (self->_classFilter && [className rangeOfString:self->_classFilter].location == NSNotFound) {
       return NO;

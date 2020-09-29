@@ -28,7 +28,9 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
 {
   if (self = [super initWithFrame:frame]) {
     self.backgroundColor = [UIColor colorWithRed:(245.0f / 255.0f) green:(245.0f / 255.0f) blue:(245.0f / 255.0f) alpha:1.0];
-
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
     UIFont *font = [UIFont systemFontOfSize:14];
     _attributes = @{NSFontAttributeName: font};
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FBMemoryProfiler/FBMemoryProfiler.h>
+#import <FBMemoryProfiler/FBMemoryProfilerPluggable.h>
 
 /**
  Example of FBMemoryProfiler plugin that will clear NSURLCache every time

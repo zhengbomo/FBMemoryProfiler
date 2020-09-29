@@ -8,7 +8,7 @@
 
 #import "FBMemoryProfiler.h"
 
-#import <FBAllocationTracker/FBAllocationTrackerManager.h>
+#import "FBAllocationTrackerManager.h"
 
 #import "FBMemoryProfilerContainerViewController.h"
 #import "FBMemoryProfilerFloatingButtonController.h"

@@ -19,7 +19,7 @@ FOUNDATION_EXPORT const unsigned char FBMemoryProfilerVersionString[];
 #import <FBMemoryProfiler/FBMemoryProfilerPluggable.h>
 #import "FBMemoryProfilerPresentationModeDelegate.h"
 
-#import <FBRetainCycleDetector/FBObjectGraphConfiguration.h>
+#import <FBMemoryProfiler/FBObjectGraphConfiguration.h>
 
 /**
  This will protect some internal parts that could use dangerous paths like private API's.

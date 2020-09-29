@@ -46,3 +46,5 @@ Pods/
 
 **/Carthage/Build
 .DS_Store
+
+tweak/.theos/
