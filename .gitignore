@@ -48,3 +48,5 @@ Pods/
 .DS_Store
 
 tweak/.theos/
+tweak/packages/
+Tweak/layout/usr/lib/FBMemoryProfiler/FBMemoryProfiler.framework
