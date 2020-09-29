@@ -154,7 +154,6 @@
 		F733EE2B2521DC9E00F11FF7 /* FBAssociationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAssociationManager.h; sourceTree = "<group>"; };
 		F733EE2D2521DC9E00F11FF7 /* FBAssociationManager+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBAssociationManager+Internal.h"; sourceTree = "<group>"; };
 		F733EE2E2521DC9E00F11FF7 /* FBAssociationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBAssociationManager.mm; sourceTree = "<group>"; };
-		F733EE2F2521DC9E00F11FF7 /* FBRetainCycleDetector-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FBRetainCycleDetector-Info.plist"; sourceTree = "<group>"; };
 		F733EE312521DC9E00F11FF7 /* FBStandardGraphEdgeFilters.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBStandardGraphEdgeFilters.mm; sourceTree = "<group>"; };
 		F733EE322521DC9E00F11FF7 /* FBStandardGraphEdgeFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBStandardGraphEdgeFilters.h; sourceTree = "<group>"; };
 		F733EE352521DC9E00F11FF7 /* FBBlockStrongLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBlockStrongLayout.h; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 		F733EE612521DC9E00F11FF7 /* FBRetainCycleDetector+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBRetainCycleDetector+Internal.h"; sourceTree = "<group>"; };
 		F733EE622521DC9E00F11FF7 /* FBRetainCycleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRetainCycleUtils.m; sourceTree = "<group>"; };
 		F733EE642521DC9E00F11FF7 /* NSObject+FBAllocationTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+FBAllocationTracker.mm"; sourceTree = "<group>"; };
-		F733EE652521DC9E00F11FF7 /* FBAllocationTracker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FBAllocationTracker-Info.plist"; sourceTree = "<group>"; };
 		F733EE662521DC9E00F11FF7 /* FBAllocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAllocationTracker.h; sourceTree = "<group>"; };
 		F733EE672521DC9E00F11FF7 /* FBAllocationTrackerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAllocationTrackerImpl.h; sourceTree = "<group>"; };
 		F733EE682521DC9E00F11FF7 /* FBAllocationTrackerSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAllocationTrackerSummary.h; sourceTree = "<group>"; };
@@ -357,7 +355,6 @@
 			isa = PBXGroup;
 			children = (
 				F733EE2A2521DC9E00F11FF7 /* Associations */,
-				F733EE2F2521DC9E00F11FF7 /* FBRetainCycleDetector-Info.plist */,
 				F733EE302521DC9E00F11FF7 /* Filtering */,
 				F733EE332521DC9E00F11FF7 /* Layout */,
 				F733EE4D2521DC9E00F11FF7 /* Graph */,
@@ -505,7 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				F733EE642521DC9E00F11FF7 /* NSObject+FBAllocationTracker.mm */,
-				F733EE652521DC9E00F11FF7 /* FBAllocationTracker-Info.plist */,
 				F733EE662521DC9E00F11FF7 /* FBAllocationTracker.h */,
 				F733EE672521DC9E00F11FF7 /* FBAllocationTrackerImpl.h */,
 				F733EE682521DC9E00F11FF7 /* FBAllocationTrackerSummary.h */,
