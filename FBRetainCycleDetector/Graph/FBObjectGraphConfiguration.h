@@ -54,7 +54,7 @@ typedef FBObjectiveCGraphElement *_Nullable(^FBObjectiveCGraphElementTransformer
 /**
  避免cell过多，限制最多，为0则不限制，默认200
  */
-@property (nonatomic, assign) BOOL cellCountLimit;
+@property (nonatomic, assign) NSInteger cellCountLimit;
 
 /**
  Decides if object graph walker should look for retain cycles inside NSTimers.
