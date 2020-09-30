@@ -19,7 +19,7 @@
 #import "FBMemoryProfilerWindowTouchesHandling.h"
 
 static const NSUInteger kFBFloatingButtonSize = 52.0;
-static const CGFloat KFBMemoryProfilerDesignatedHeight = 230;
+static const CGFloat KFBMemoryProfilerDesignatedHeight = 330;
 
 @interface FBMemoryProfiler () <FBMemoryProfilerWindowTouchesHandling>
 

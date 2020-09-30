@@ -41,26 +41,36 @@
 
 - (BOOL)isFromApp {
     if (!_hasCheckFilterBundle) {
-        // find all bundle from
-        static NSArray *bundleIds;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            NSMutableArray *_bundleIds = [NSMutableArray arrayWithObject:NSBundle.mainBundle.bundleIdentifier];
-            NSString *mainBundlePath = NSBundle.mainBundle.bundlePath;
-            for (NSBundle *bundle in NSBundle.allFrameworks) {
-                if ([bundle.bundlePath hasPrefix:mainBundlePath]) {
-                    [_bundleIds addObject:bundle.bundleIdentifier];
-                }
-            }
-            bundleIds = [_bundleIds copy];
-        });
-        
+        // find all bundle from app
+//        static NSArray *bundleIds;
+//        static dispatch_once_t onceToken;
+//        dispatch_once(&onceToken, ^{
+//            NSMutableArray *_bundleIds = [NSMutableArray arrayWithObject:NSBundle.mainBundle.bundleIdentifier];
+//            NSString *mainBundlePath = NSBundle.mainBundle.bundlePath;
+//            for (NSBundle *bundle in NSBundle.allFrameworks) {
+//                if ([bundle.bundlePath hasPrefix:mainBundlePath]) {
+//                    [_bundleIds addObject:bundle.bundleIdentifier];
+//                }
+//            }
+//            bundleIds = [_bundleIds copy];
+//        });
+//
         NSBundle *bundle = [NSBundle bundleForClass:self.cls];
-        if ([bundleIds containsObject:bundle.bundleIdentifier]) {
+//        if ([bundleIds containsObject:bundle.bundleIdentifier]) {
+//            _isFromApp = YES;
+//        } else {
+//            _isFromApp = NO;
+//        }
+        
+        // only match main bundle
+        if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:bundle.bundleIdentifier]) {
             _isFromApp = YES;
         } else {
             _isFromApp = NO;
         }
+        
+        
+        
         _hasCheckFilterBundle = YES;
     }
     return _isFromApp;

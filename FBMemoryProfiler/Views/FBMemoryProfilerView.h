@@ -33,6 +33,7 @@
 
 @property (nonatomic, readonly, nullable) UIButton *hideButton;
 @property (nonatomic, readonly, nullable) UIButton *markGenerationButton;
+@property (nonatomic, readonly, nullable) UIButton *timerButton;
 
 - (void)setResidentMemory:(nullable NSString *)residentMemory;
 

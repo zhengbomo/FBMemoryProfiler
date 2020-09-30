@@ -58,18 +58,28 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
     _hideButton.layer.borderWidth = 1.0;
     _hideButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [_hideButton setTitle:@"Hide" forState:UIControlStateNormal];
-
+    
     _markGenerationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _markGenerationButton.backgroundColor = [UIColor whiteColor];
     _markGenerationButton.layer.borderWidth = 1.0;
     _markGenerationButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [_markGenerationButton setTitle:@"Mark Gen." forState:UIControlStateNormal];
+      
+    _timerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _timerButton.backgroundColor = [UIColor whiteColor];
+    
+    _timerButton.layer.borderWidth = 1.0;
+    _timerButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [_timerButton setTitle:@"timer" forState:UIControlStateNormal];
+    [_timerButton setTitle:@"no_timer" forState:UIControlStateSelected];
+    [_timerButton setTitleColor:_timerButton.tintColor forState:UIControlStateNormal];
 
     [self addSubview:_residentMemory];
     [self addSubview:_tableView];
     [self addSubview:_subwordFilter];
     [self addSubview:_sortControl];
     [self addSubview:_hideButton];
+    [self addSubview:_timerButton];
     [self addSubview:_markGenerationButton];
   }
 
@@ -127,9 +137,13 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
 
   _residentMemory.frame = CGRectMake(halfWidth + kFBMemoryProfilerMargin,
                                      cellHeight + yOffset,
-                                     FBMemoryProfilerRoundPixelValue(residentLabelWidth),
+                                     FBMemoryProfilerRoundPixelValue(CGRectGetWidth(residentBoundingRect) + 2 * kFBMemoryProfilerMargin),
                                      FBMemoryProfilerRoundPixelValue(CGRectGetHeight(residentBoundingRect)));
-
+    
+  _timerButton.frame = CGRectMake(kFBMemoryProfilerMargin + CGRectGetMaxX(_residentMemory.frame),
+                                  cellHeight + kFBMemoryProfilerMargin,
+                                  buttonWidth,
+                                  expectedElementHeight);
 
   _tableView.frame = CGRectMake(0,
                                 kFBMemoryProfilerHeaderHeight,

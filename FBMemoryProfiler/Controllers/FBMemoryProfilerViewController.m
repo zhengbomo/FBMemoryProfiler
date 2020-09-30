@@ -96,6 +96,7 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
   _profilerView.tableView.delegate = self;
   _profilerView.tableView.dataSource = _dataSource;
   _profilerView.tableView.allowsSelection = YES;
+  _profilerView.timerButton.selected = _retainCycleDetectorConfiguration.shouldInspectTimers;
 
   _profilerView.subwordFilter.delegate = self;
 
@@ -108,9 +109,14 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
 
   _profilerView.sortControl.selectedSegmentIndex = segmentSelected;
 
-
+    [_profilerView.timerButton addTarget:self action:@selector(_timerProfiler:) forControlEvents:UIControlEventTouchUpInside];
   [_profilerView.hideButton addTarget:self action:@selector(_hideProfiler) forControlEvents:UIControlEventTouchUpInside];
   [_profilerView.markGenerationButton addTarget:self action:@selector(_markGeneration) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)_timerProfiler:(UIButton *)button {
+    button.selected = !button.selected;
+    _retainCycleDetectorConfiguration.shouldInspectTimers = button.isSelected;
 }
 
 - (void)_hideProfiler
@@ -219,7 +225,7 @@ retainCycleDetectorConfiguration:(FBObjectGraphConfiguration *)retainCycleDetect
 
 - (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return 16.0;
+  return 34.0;
 }
 
 - (CGFloat)tableView:(nonnull UITableView *)tableView heightForHeaderInSection:(NSInteger)section

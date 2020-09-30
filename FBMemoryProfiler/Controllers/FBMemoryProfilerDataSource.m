@@ -41,7 +41,7 @@ static UIColor *FBMemoryProfilerPaleRedColor() {
 - (instancetype)initWithAnalysisCache:(FBRetainCycleAnalysisCache *)analysisCache configuration:(FBObjectGraphConfiguration *)configuration
 {
   if (self = [super init]) {
-    _font = [UIFont systemFontOfSize:10.0];
+    _font = [UIFont systemFontOfSize:14.0];
     _expandedSection = [NSMutableSet setWithArray:@[@0]];
     _byteCountFormatter = [NSByteCountFormatter new];
     _analysisCache = analysisCache;

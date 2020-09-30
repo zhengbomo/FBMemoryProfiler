@@ -59,7 +59,7 @@ typedef FBObjectiveCGraphElement *_Nullable(^FBObjectiveCGraphElementTransformer
 /**
  Decides if object graph walker should look for retain cycles inside NSTimers.
  */
-@property (nonatomic, readonly) BOOL shouldInspectTimers;
+@property (nonatomic, assign) BOOL shouldInspectTimers;
 
 /**
  Decides if block objects should include their invocation address (the code part of the block) in the report.
