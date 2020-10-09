@@ -7,16 +7,16 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <FBMemoryProfiler/FBAllocationTracker.h>
+#import <FBMemoryProfiler/FBAssociationManager.h>
 #import "AppDelegate.h"
 
-#import <FBAllocationTracker/FBAllocationTracker.h>
-
-#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
 
 int main(int argc, char * argv[]) {
   [FBAssociationManager hook];
   [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];
   [[FBAllocationTrackerManager sharedManager] enableGenerations];
+
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
   }
