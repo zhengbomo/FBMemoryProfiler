@@ -22,6 +22,7 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
   NSDictionary *_attributes;
 
   UILabel *_residentMemory;
+  UILabel *_timerLabel;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -64,22 +65,19 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
     _markGenerationButton.layer.borderWidth = 1.0;
     _markGenerationButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [_markGenerationButton setTitle:@"Mark Gen." forState:UIControlStateNormal];
-      
-    _timerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _timerButton.backgroundColor = [UIColor whiteColor];
     
-    _timerButton.layer.borderWidth = 1.0;
-    _timerButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [_timerButton setTitle:@"timer" forState:UIControlStateNormal];
-    [_timerButton setTitle:@"no_timer" forState:UIControlStateSelected];
-    [_timerButton setTitleColor:_timerButton.tintColor forState:UIControlStateNormal];
+    _timerLabel = [UILabel new];
+    _timerLabel.text = @"Timer";
+    _timerLabel.font = font;
+    _timerSwitch = [[UISwitch alloc] init];
 
     [self addSubview:_residentMemory];
     [self addSubview:_tableView];
     [self addSubview:_subwordFilter];
     [self addSubview:_sortControl];
     [self addSubview:_hideButton];
-    [self addSubview:_timerButton];
+    [self addSubview:_timerLabel];
+    [self addSubview:_timerSwitch];
     [self addSubview:_markGenerationButton];
   }
 
@@ -140,8 +138,12 @@ static const CGFloat kFBMemoryProfilerDragHandleHeight = 20.0;
                                      FBMemoryProfilerRoundPixelValue(CGRectGetWidth(residentBoundingRect) + 2 * kFBMemoryProfilerMargin),
                                      FBMemoryProfilerRoundPixelValue(CGRectGetHeight(residentBoundingRect)));
     
-  _timerButton.frame = CGRectMake(kFBMemoryProfilerMargin + CGRectGetMaxX(_residentMemory.frame),
-                                  cellHeight + kFBMemoryProfilerMargin,
+  _timerLabel.frame = CGRectMake(kFBMemoryProfilerMargin + CGRectGetMaxX(_residentMemory.frame),
+                                 cellHeight + kFBMemoryProfilerMargin,
+                                 40,
+                                 expectedElementHeight);
+  _timerSwitch.frame = CGRectMake(kFBMemoryProfilerMargin + CGRectGetMaxX(_timerLabel.frame),
+                                  cellHeight,
                                   buttonWidth,
                                   expectedElementHeight);
 
