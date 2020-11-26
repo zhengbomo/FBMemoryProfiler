@@ -13,7 +13,7 @@ rm -rf $BuildDir
 cd ..
 
 # 打包
-xcodebuild -target "${Project}" -project "${Project}.xcodeproj" -configuration "${Configuration}" -sdk iphoneos BUILD_DIR="${BuildDir}" clean build;
+xcodebuild -target "${Project}" -project "${Project}.xcodeproj" -configuration "${Configuration}" -arch "arm64" -sdk iphoneos BUILD_DIR="${BuildDir}" clean build;
 
 # 删除无用文件
 rm -rf "${BuildDir}/${Configuration}-iphoneos/${Project}.framework/Headers"

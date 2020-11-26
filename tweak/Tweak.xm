@@ -51,7 +51,8 @@
 			return;
 		}
 
-		NSString *keyPath = [NSString stringWithFormat:@"FBMemoryProfilerEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]];
+		NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+		NSString *keyPath = [NSString stringWithFormat:@"FBMemoryProfilerEnabled-%@", bundleId];
 		if ([[pref objectForKey:keyPath] boolValue]) {
 			void *handle = dlopen([profileFrameworkPath UTF8String], RTLD_NOW);
 			if (handle == NULL) {
